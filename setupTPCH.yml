@@ -24,6 +24,7 @@
       shell:   |
           mkdir /home/ec2-user/tpchSrc
           mkdir /home/ec2-user/tpchCsv
+          mkdir /home/ec2-user/tpchQrys
           chown ec2-user:ec2-user /home/ec2-user/tpch*
 
     - name: Copy tpch-h-tool-2.17.3.zip
@@ -70,6 +71,24 @@
       shell:   |
           cd /home/ec2-user/tpchSrc/2.17.3/dbgen
           dbgen -s 1
+
+    - name: Copy updated createTPCHSchema.sql 
+      copy: 
+        src:  /home/balakcha/github/tpch/createTPCHSchema.sql
+        dest: /home/ec2-user/tpchQrys/createTPCHSchema.sql
+        owner: ec2-user 
+        group: ec2-user
+        mode: 0755
+      tags:
+        - justThis
+
+    - name: Copy  dropTables.sql 
+      copy: 
+        src:  /home/balakcha/github/tpch/dropTables.sql
+        dest: /home/ec2-user/tpchQrys/dropTables.sql
+        owner: ec2-user 
+        group: ec2-user
+        mode: 0755
       tags:
         - justThis
 

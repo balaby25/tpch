@@ -1,0 +1,8 @@
+         DROP TABLE LINEITEM ;
+         DROP TABLE NATION  ;
+         DROP TABLE REGION ;
+         DROP TABLE PART  ;
+         DROP TABLE SUPPLIER ;
+         DROP TABLE PARTSUPP;
+         DROP TABLE CUSTOMER ;
+         DROP TABLE ORDERS  ;
