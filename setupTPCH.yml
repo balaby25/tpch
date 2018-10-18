@@ -11,6 +11,8 @@
          yum install -y gcc
          yum install -y wget
          yum install -y unzip
+         yum install -y https://download.postgresql.org/pub/repos/yum/10/redhat/rhel-7-x86_64/pgdg-redhat10-10-2.noarch.rpm
+         yum install -y postgresql10
 
     - name: get awscli
       shell: |
