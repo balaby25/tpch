@@ -1,0 +1,79 @@
+#  gather_facts: no
+# /u01/app/oracle/product/18.1.0/19Byte/ycsb-0.13.0-RC1/workloada workloadb are already identical in all nodes in oci image
+- hosts: aws
+  become: true
+  become_user: root
+  environment:
+    PATH: "/usr/sbin:/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin"
+  tasks:
+    - name: install preReq rpms 
+      shell: |
+         yum install -y gcc
+         yum install -y wget
+         yum install -y unzip
+
+    - name: get awscli
+      shell: |
+         wget https://bootstrap.pypa.io/get-pip.py
+         python get-pip.py
+         pip install awscli
+
+    - name: mkdir tpch
+      shell:   |
+          mkdir /home/ec2-user/tpchSrc
+          mkdir /home/ec2-user/tpchCsv
+          chown ec2-user:ec2-user /home/ec2-user/tpch*
+
+    - name: Copy tpch-h-tool-2.17.3.zip
+      copy: 
+        src:  /home/balakcha/tpch/tpch-h-tool-2.17.3.zip
+        dest: /home/ec2-user/tpchSrc/tpch-h-tool-2.17.3.zip
+        owner: ec2-user 
+        group: ec2-user
+        mode: 0755
+
+    - name: extract tpch-tool
+      become: true
+      become_user: ec2-user
+      shell:   |
+          cd /home/ec2-user/tpchSrc
+          unzip  tpch-h-tool-2.17.3.zip
+          
+    - name: Copy updated makefile 
+      copy: 
+        src:  /home/balakcha/tpch/makefile
+        dest: /home/ec2-user/tpchSrc/2.17.3/dbgen/makefile
+        owner: ec2-user
+        group: ec2-user
+        mode: 0755
+
+    - name: Copy updated tpcd.h 
+      copy: 
+        src:  /home/balakcha/tpch/tpcd.h
+        dest: /home/ec2-user/tpchSrc/2.17.3/dbgen/tpch.h
+        owner: ec2-user 
+        group: ec2-user
+        mode: 0755
+
+    - name: make and generate the executables
+      become: true
+      become_user: ec2-user
+      shell:   |
+          cd /home/ec2-user/tpchSrc/2.17.3/dbgen
+          make
+
+    - name: generate tpch1g
+      become: true
+      become_user: ec2-user
+      shell:   |
+          cd /home/ec2-user/tpchSrc/2.17.3/dbgen
+          dbgen -s 1
+      tags:
+        - justThis
+
+## next is to run dbgen , generate data and move it to a folder 
+         ## create database tpch256g;
+          
+# LOAD DATA LOCAL INFILE '/data/mysql/tpchSrc/2.17.3/dbgen/tpch1g/lineitem.tbl' INTO TABLE LINEITEM FIELDS TERMINATED BY '|';
+# once u unzip, follow instructions at https://sites.google.com/site/halitsch88/Implementation-TPC-H-schema-into-MySQL-DBMS
+#
