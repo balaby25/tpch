@@ -70,7 +70,7 @@
       become_user: ec2-user
       shell:   |
           cd /home/ec2-user/tpchSrc/2.17.3/dbgen
-          dbgen -s 1
+          ./dbgen -s 1
 
     - name: Copy updated createTPCHSchema.sql 
       copy: 
@@ -92,8 +92,16 @@
       tags:
         - justThis
 
-## next is to run dbgen , generate data and move it to a folder 
-         ## create database tpch256g;
+    - name: Copy  loadTables.sql 
+      copy: 
+        src:  /home/balakcha/github/tpch/loadTables.sql
+        dest: /home/ec2-user/tpchQrys/loadTables.sql
+        owner: ec2-user 
+        group: ec2-user
+        mode: 0755
+      tags:
+        - justThis
+
           
 # LOAD DATA LOCAL INFILE '/data/mysql/tpchSrc/2.17.3/dbgen/tpch1g/lineitem.tbl' INTO TABLE LINEITEM FIELDS TERMINATED BY '|';
 # once u unzip, follow instructions at https://sites.google.com/site/halitsch88/Implementation-TPC-H-schema-into-MySQL-DBMS
