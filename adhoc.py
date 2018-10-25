@@ -10,7 +10,7 @@ import subprocess
 
 def adhoc():
     print "[INFO ]   adhoc  commands..so, be careful  "
-    cmd="ansible-playbook -i hosts.ini -u ec2-user setupTPCH.yml --tags \"justThis\" "
+    cmd="ansible-playbook -i hosts.ini -u ec2-user setupTPCH.yml  "
     #cmd="ansible-playbook -i hosts.ini setupTPCH.yml --tags \"for2GO\" "
     #cmd="ansible-playbook -i hosts.ini setupTPCH.yml --tags \"justThis\" "
     #cmd="ansible-playbook -i hosts.ini createTPCHSchema.yml   "

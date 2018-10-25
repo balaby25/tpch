@@ -1,8 +1,8 @@
-         DROP TABLE LINEITEM ;
-         DROP TABLE NATION  ;
-         DROP TABLE REGION ;
-         DROP TABLE PART  ;
-         DROP TABLE SUPPLIER ;
-         DROP TABLE PARTSUPP;
-         DROP TABLE CUSTOMER ;
-         DROP TABLE ORDERS  ;
+         DROP TABLE lineitem ;
+         DROP TABLE nation  ;
+         DROP TABLE region ;
+         DROP TABLE part  ;
+         DROP TABLE supplier ;
+         DROP TABLE partsupp;
+         DROP TABLE customer ;
+         DROP TABLE orders  ;
