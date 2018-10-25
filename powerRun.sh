@@ -12,9 +12,9 @@ export DBHOST=$1
 
 
 
-#for i in  hq1 hq3 hq5 hq6 hq7 hq8 hq10 hq12 hq14 hq19 
-#for HQID in  hq1  hq3 hq5
-for HQID in  hq6  
+#for HQID in  hq1  hq3 hq5 hq6 hq7 hq8 hq10
+#for HQID in  hq12 hq14 hq19  
+for HQID in  hq1 hq3 hq5 hq6 hq7 hq8 hq10 hq12 hq14 hq19 
 do
    cat /dev/null > $sqlOutDir/$HQID.out.aggr
    cat $inputSqlDir/$HQID.sql > $sqlOutDir/$HQID.out.aggr
