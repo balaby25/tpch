@@ -29,3 +29,6 @@ delimiter '|' region 'us-west-2';
 copy orders from 's3://balabama1/tpch1g/orders.tbl'
 credentials 'aws_iam_role=arn:aws:iam::355114326698:role/myRedshiftRole' 
 delimiter '|' region 'us-west-2';
+
+analyze;
+vacuum;

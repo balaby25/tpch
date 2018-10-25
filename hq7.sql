@@ -1,3 +1,6 @@
+set query_group to 'hq7';
+set enable_result_cache_for_session to off;
+
 select   supp_nation, cust_nation, l_year, sum(volume) as revenue
 from (
 	select n1.n_name as supp_nation, n2.n_name as cust_nation, extract(year from l_shipdate) as l_year,
@@ -16,3 +19,5 @@ l_extendedprice * (1 - l_discount) as volume
 )
 group by supp_nation, cust_nation, l_year
 order by supp_nation, cust_nation, l_year;
+
+select query, starttime, endtime , elapsed/1000 as "ElapsedMs", source_query from svl_qlog where label = 'hq7' and query = (select max(query) from stl_query where label = 'hq7');

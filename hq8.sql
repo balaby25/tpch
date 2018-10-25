@@ -1,3 +1,6 @@
+set query_group to 'hq8';
+set enable_result_cache_for_session to off;
+
 select   o_year, sum(case when nation = 'BRAZIL' then volume else 0 end) / sum(volume) as mkt_share
 from (
 	select extract(year from o_orderdate) as o_year, l_extendedprice * (1-l_discount) as volume, n2.n_name as nation
@@ -15,3 +18,5 @@ from (
 )
 group by o_year
 order by o_year;
+
+select query, starttime, endtime , elapsed/1000 as "ElapsedMs", source_query from svl_qlog where label = 'hq8' and query = (select max(query) from stl_query where label = 'hq8');

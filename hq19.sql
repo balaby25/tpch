@@ -1,3 +1,6 @@
+set query_group to 'hq19';
+set enable_result_cache_for_session to off;
+
 select   sum(l_extendedprice * (1 - l_discount) ) as revenue
 from lineitem, part
 where
@@ -30,3 +33,5 @@ and p_size between 1 and 15
 and l_shipmode in ('AIR', 'AIR REG')
 and l_shipinstruct = 'DELIVER IN PERSON'
 );
+
+select query, starttime, endtime , elapsed/1000 as "ElapsedMs", source_query from svl_qlog where label = 'hq19' and query = (select max(query) from stl_query where label = 'hq19');

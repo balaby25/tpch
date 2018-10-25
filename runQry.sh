@@ -3,26 +3,28 @@
 set -e
 set -u
 
-if [ $# != 3 ]; then
-    echo "usage : ./runQry.sh  dbhost  /full/path/sqlfile.sql hqx.out "
+if [ $# != 2 ]; then
+    echo "usage : ./runQry.sh  dbhost  hq??  "
     exit 1
 fi
 
+export inputSqlDir=/home/balakcha/github/tpch/
+export sqlOutDir=/home/balakcha/hqouts/
 export DBHOST=$1
-export SQLFILEFULLPATH=$2
+export HQID=$2
 
-time psql \
+{ time psql \
     -X \
     -U awsmstr \
     -h $DBHOST \
     -p 5439 \
     -v awsmstr \
-    -f $SQLFILEFULLPATH \
-    -o /home/balakcha/hqouts/$3 \
+    -f $inputSqlDir/$HQID.sql \
+    -o $sqlOutDir/$HQID.out \
     --echo-all \
     --set AUTOCOMMIT=off \
     --set ON_ERROR_STOP=on \
-    -d dev
+    -d dev ; }  2>>$sqlOutDir/$HQID.out 
 
 psql_exit_status=$?
 

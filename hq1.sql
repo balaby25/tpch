@@ -1,3 +1,6 @@
+set query_group to 'hq1';
+set enable_result_cache_for_session to off;
+
 select   l_returnflag, l_linestatus,
 	sum(l_quantity) as sum_qty,
 	sum(l_extendedprice) as sum_base_price,
@@ -11,3 +14,6 @@ from lineitem
 where l_shipdate <= date '1998-12-01' - interval '90' day 
 group by l_returnflag, l_linestatus
 order by l_returnflag, l_linestatus;
+
+set query_group to 'stlQry';
+select query, starttime, endtime , elapsed/1000 as "ElapsedMs", source_query from svl_qlog where label = 'hq1' and query = (select max(query) from stl_query where label = 'hq1')
