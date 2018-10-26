@@ -72,37 +72,37 @@
           cd /home/ec2-user/tpchSrc/2.17.3/dbgen
           ./dbgen -s 1
 
-    - name: Copy updated createTPCHSchema.sql 
+    - name: Copy scripts for tpch load and queries
       copy: 
-        src:  /home/balakcha/github/tpch/createTPCHSchema.sql
-        dest: /home/ec2-user/tpchQrys/createTPCHSchema.sql
+        src:  /home/balakcha/github/tpch/*
+        dest: /home/ec2-user/tpchQrys/
         owner: ec2-user 
         group: ec2-user
-        mode: 0755
+        mode: 0744
       tags:
         - justThis
 
-    - name: Copy  dropTables.sql 
-      copy: 
-        src:  /home/balakcha/github/tpch/dropTables.sql
-        dest: /home/ec2-user/tpchQrys/dropTables.sql
-        owner: ec2-user 
-        group: ec2-user
-        mode: 0755
-      tags:
-        - justThis
-
-    - name: Copy  loadTables.sql 
-      copy: 
-        src:  /home/balakcha/github/tpch/loadTables.sql
-        dest: /home/ec2-user/tpchQrys/loadTables.sql
-        owner: ec2-user 
-        group: ec2-user
-        mode: 0755
-      tags:
-        - justThis
-
-          
-# LOAD DATA LOCAL INFILE '/data/mysql/tpchSrc/2.17.3/dbgen/tpch1g/lineitem.tbl' INTO TABLE LINEITEM FIELDS TERMINATED BY '|';
-# once u unzip, follow instructions at https://sites.google.com/site/halitsch88/Implementation-TPC-H-schema-into-MySQL-DBMS
-#
+#     - name: Copy  dropTables.sql 
+#       copy: 
+#         src:  /home/balakcha/github/tpch/dropTables.sql
+#         dest: /home/ec2-user/tpchQrys/dropTables.sql
+#         owner: ec2-user 
+#         group: ec2-user
+#         mode: 0755
+#       tags:
+#         - justThis
+# 
+#     - name: Copy  loadTables.sql 
+#       copy: 
+#         src:  /home/balakcha/github/tpch/loadTables.sql
+#         dest: /home/ec2-user/tpchQrys/loadTables.sql
+#         owner: ec2-user 
+#         group: ec2-user
+#         mode: 0755
+#       tags:
+#         - justThis
+# 
+#           
+# # LOAD DATA LOCAL INFILE '/data/mysql/tpchSrc/2.17.3/dbgen/tpch1g/lineitem.tbl' INTO TABLE LINEITEM FIELDS TERMINATED BY '|';
+# # once u unzip, follow instructions at https://sites.google.com/site/halitsch88/Implementation-TPC-H-schema-into-MySQL-DBMS
+# #
